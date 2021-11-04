@@ -12,13 +12,10 @@
 <td align="center"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/Wizpna/assessment_task/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%2012%20Pro%20Max%20-%202021-11-04%20at%2023.06.40.png"><img src="https://raw.githubusercontent.com/Wizpna/assessment_task/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%2012%20Pro%20Max%20-%202021-11-04%20at%2023.06.40.png" alt="" data-canonical-src="https://i.imgur.com/u1rCsZ8.png" style="max-width:100%;"></a></td>
 </tr>
 <tr>
-<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://lh3.googleusercontent.com/wt7Rd8nF4Ccm7-TmntYSdV2YaHzYplFkFX9jK5cu2MANNFpWuR5UIc1DD73SL6kW9YM=w720-h310-rw"><img src="https://lh3.googleusercontent.com/wt7Rd8nF4Ccm7-TmntYSdV2YaHzYplFkFX9jK5cu2MANNFpWuR5UIc1DD73SL6kW9YM=w720-h310-rw" alt="" data-canonical-src="https://i.imgur.com/rujH2xz.png" style="max-width:100%;"></a></td>
-<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://lh3.googleusercontent.com/dFLrBGZmu4_StiVdJj1Xz156I-a9w6Z2aCKD8jwCXZzfB6SZXXLkJlb8__N5by45d2Jj=w720-h310-rw"><img src="https://lh3.googleusercontent.com/dFLrBGZmu4_StiVdJj1Xz156I-a9w6Z2aCKD8jwCXZzfB6SZXXLkJlb8__N5by45d2Jj=w720-h310-rw" alt="" data-canonical-src="https://i.imgur.com/gOx5T8H.png" style="max-width:100%;"></a></td>
+<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/Wizpna/assessment_task/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%2012%20Pro%20Max%20-%202021-11-04%20at%2023.06.44.png"><img src="https://raw.githubusercontent.com/Wizpna/assessment_task/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%2012%20Pro%20Max%20-%202021-11-04%20at%2023.06.44.png" alt="" data-canonical-src="https://i.imgur.com/rujH2xz.png" style="max-width:100%;"></a></td>
+<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/Wizpna/assessment_task/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%2012%20Pro%20Max%20-%202021-11-04%20at%2023.06.47.png"><img src="https://raw.githubusercontent.com/Wizpna/assessment_task/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%2012%20Pro%20Max%20-%202021-11-04%20at%2023.06.47.png" alt="" data-canonical-src="https://i.imgur.com/gOx5T8H.png" style="max-width:100%;"></a></td>
 </tr>
-<tr>
-<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://lh3.googleusercontent.com/XhYtYsQVeRDv5pn4kWzKfpjwcofPpsdRr2ISvxiCw3kQ1WgGZLmQb-c06mCnOJJFyWc=w720-h310-rw"><img src="https://lh3.googleusercontent.com/XhYtYsQVeRDv5pn4kWzKfpjwcofPpsdRr2ISvxiCw3kQ1WgGZLmQb-c06mCnOJJFyWc=w720-h310-rw" alt="" data-canonical-src="https://i.imgur.com/RubqN3Z.png" style="max-width:100%;"></a></td>
-<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://lh3.googleusercontent.com/UK71yaAN7e447_i8RTGkmmQil6uIs99pxu7_M-bprZ7Uc4XrHMfCnzSzKIV8UiTxk-xi=w720-h310-rw"><img src="https://lh3.googleusercontent.com/UK71yaAN7e447_i8RTGkmmQil6uIs99pxu7_M-bprZ7Uc4XrHMfCnzSzKIV8UiTxk-xi=w720-h310-rw" alt="" data-canonical-src="https://i.imgur.com/D2Ucb2t.png" style="max-width:100%;"></a></td>
-</tr>
+
 </tbody>
 </table>
 </p>
