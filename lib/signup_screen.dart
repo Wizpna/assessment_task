@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:assessment_task/Widget/customClipper.dart';
 import 'package:assessment_task/home_screen.dart';
 import 'package:assessment_task/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,6 +14,133 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  bool isLoading = false;
+  String? verificationId;
+  TextEditingController otpCode = TextEditingController();
+
+  Future<void> phoneSignIn({required String phoneNumber}) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        timeout: Duration(seconds: 120),
+        verificationCompleted: _onVerificationCompleted,
+        verificationFailed: _onVerificationFailed,
+        codeSent: _onCodeSent,
+        codeAutoRetrievalTimeout: _onCodeTimeout);
+  }
+
+  _onVerificationCompleted(PhoneAuthCredential authCredential) async {
+    print("verification completed ${authCredential.smsCode}");
+    User? user = FirebaseAuth.instance.currentUser;
+    setState(() {
+      this.otpCode.text = authCredential.smsCode!;
+    });
+    if (authCredential.smsCode != null) {
+      try {
+        UserCredential credential =
+            await user!.linkWithCredential(authCredential);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'provider-already-linked') {
+          await FirebaseAuth.instance.signInWithCredential(authCredential);
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+      //   Navigator.pushNamedAndRemoveUntil(
+      //       context, Constants.homeNavigate, (route) => false);
+      // }
+    }
+  }
+
+  _onVerificationFailed(FirebaseAuthException exception) {
+    if (exception.code == 'invalid-phone-number') {
+      showMessage("The phone number entered is invalid!");
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  _onCodeSent(String verificationId, int? forceResendingToken) {
+    this.verificationId = verificationId;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: Text("Enter SMS Code"),
+        content: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextFormField(
+                keyboardType: TextInputType.number,
+                controller: otpCode,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'OTP required!';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("Done"),
+            textColor: Colors.white,
+            color: Colors.redAccent,
+            onPressed: () {
+              final AuthCredential credential = PhoneAuthProvider.credential(
+                  verificationId: verificationId, smsCode: otpCode.text);
+              FirebaseAuth.instance
+                  .signInWithCredential(credential)
+                  .then((result) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
+              }).catchError((e) {
+                print(e);
+              });
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  _onCodeTimeout(String timeout) {
+    return null;
+  }
+
+  void showMessage(String errorMessage) {
+    showDialog(
+        context: context,
+        builder: (BuildContext builderContext) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                child: Text("Ok"),
+                onPressed: () async {
+                  Navigator.of(builderContext).pop();
+                },
+              )
+            ],
+          );
+        }).then((value) {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  final _formKey = GlobalKey<FormState>();
+  var email, phone, password;
+  bool _visible = true;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -74,87 +202,147 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     SizedBox(
                       height: 50,
                     ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "Username",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              TextField(
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      fillColor: Color(0xfff3f3f4),
-                                      filled: true))
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "Email address",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              TextField(
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Email address",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
                                   keyboardType: TextInputType.emailAddress,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       fillColor: Color(0xfff3f3f4),
-                                      filled: true))
-                            ],
+                                      filled: true),
+                                  onSaved: (input) => email = input,
+                                  validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return 'Email address required!';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "Password",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              TextField(
-                                  obscureText: true,
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Phone Number",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+                                  keyboardType: TextInputType.phone,
+                                  obscureText: false,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       fillColor: Color(0xfff3f3f4),
-                                      filled: true))
-                            ],
+                                      filled: true),
+                                  onSaved: (input) => phone = input,
+                                  validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return 'Phone Number required!';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                )
+                              ],
+                            ),
                           ),
-                        )
-                      ],
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Password",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+                                  obscureText: _visible,
+                                  decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        icon: Icon(
+                                          !_visible
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                          size: 16,
+                                          color: DateTime.now().hour > 17
+                                              ? Colors.black
+                                              : Color(0xff14279B),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _visible = !_visible;
+                                          });
+                                        },
+                                      ),
+                                      border: InputBorder.none,
+                                      fillColor: Color(0xfff3f3f4),
+                                      filled: true),
+                                  onSaved: (input) => password = input,
+                                  validator: (String? value) {
+                                    if (value!.isEmpty) {
+                                      return 'Password required!';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ),
-                      ),
+                      onTap: () {
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => HomeScreen(),
+                        //   ),
+                        // );
+                        final form = _formKey.currentState;
+                        if (form!.validate()) {
+                          form.save();
+                          phoneSignIn(phoneNumber: phone);
+                          setState(() {
+                            isLoading = true;
+                          });
+                        }
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.symmetric(vertical: 15),
@@ -177,10 +365,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ],
                           ),
                         ),
-                        child: Text(
-                          'Register Now',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
+                        child: isLoading == true
+                            ? CircularProgressIndicator()
+                            : Text(
+                                'Register Now',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
                       ),
                     ),
                     SizedBox(height: height * .14),

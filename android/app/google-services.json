@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "271972311872",
+    "firebase_url": "https://id-center.firebaseio.com",
+    "project_id": "id-center",
+    "storage_bucket": "id-center.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271972311872:android:c210132c88bb50cf15d0a5",
+        "android_client_info": {
+          "package_name": "com.promise.assessment_task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271972311872-51ckauha99756m8rpnrellldppfmtaa9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.promise.assessment_task",
+            "certificate_hash": "5cbe44addf950bbe7ffaf89443df4f79a3b4db17"
+          }
+        },
+        {
+          "client_id": "271972311872-7gq4fivimukmpp0q46h5epaja7uv5m8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1o2tTXwPfFpsnxs0J80DXyR-iYziq9JM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271972311872-7gq4fivimukmpp0q46h5epaja7uv5m8t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "271972311872-6phlkunj2t9eud4sqm18l7tgrch3r5s8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.promise.myflight"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271972311872:android:9640c005d67bf59615d0a5",
+        "android_client_info": {
+          "package_name": "com.promise.myflight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271972311872-87dhk5nsiiqfd12mopqq1h8o0b5o03bo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.promise.myflight",
+            "certificate_hash": "5cbe44addf950bbe7ffaf89443df4f79a3b4db17"
+          }
+        },
+        {
+          "client_id": "271972311872-7gq4fivimukmpp0q46h5epaja7uv5m8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1o2tTXwPfFpsnxs0J80DXyR-iYziq9JM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271972311872-7gq4fivimukmpp0q46h5epaja7uv5m8t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "271972311872-6phlkunj2t9eud4sqm18l7tgrch3r5s8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.promise.myflight"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
